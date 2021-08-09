@@ -4,6 +4,7 @@ body {
   width: 960px;
   margin: auto;
   font-family:Montserrat;
+  ;
 }
 
 .container {
@@ -88,4 +89,19 @@ form input {
     font-size: 16px;
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+  li{
+    list-style-type: square  ;
+    background:lightblue;
+    margin: 10px 20px;
+  }
+  ul {
+    list-style-type:none;
+    margin: 0;
+    padding: 0;
+    background:lightblue;
+    list-style-position: inside;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  
   }
