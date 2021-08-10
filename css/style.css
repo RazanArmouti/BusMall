@@ -103,5 +103,6 @@ form input {
     list-style-position: inside;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    column-count: 2;
   
   }
