@@ -47,6 +47,8 @@ function imgConstructor(name, imageSrc) {
   imgConstructor.allSplitArray.push(this);
 }
 
+localStorage.data = JSON.stringify(imagesArray);
+
 function getRandomNo(max, min) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
@@ -60,7 +62,8 @@ function SplitImges() {
 }
 function render() {
 
-  SplitImges();
+  //SplitImges();
+  getData();
 
   do {
     firstRandom = getRandomNo(0, imagesArray.length - 1);
@@ -73,10 +76,14 @@ function render() {
   (oldFirstRandom === firstRandom || oldFirstRandom === secondRandom || oldFirstRandom === thirdRandom) ||
   (oldSecondRandom === firstRandom || oldSecondRandom === secondRandom || oldSecondRandom === thirdRandom) ||
     (oldThirdRandom === firstRandom || oldThirdRandom === secondRandom || oldThirdRandom === thirdRandom));
+
   oldFirstRandom = firstRandom;
   oldSecondRandom = secondRandom;
   oldThirdRandom = thirdRandom;
-
+/* note: another solution to use iclude methods:
+declare global array prevArr=[];
+with while loop add new three lines : prevArr(firstRandom)||prevArr(secondRandom)||prevArr(thirdRandom)
+after while add this line prevArr=[firstRandom,secondRandom,thirdRandom];*/
 
 
 
@@ -119,24 +126,24 @@ function SubmitHandlerforRender(event) {
 }
 
 function chartRender() {
-  let nameArr=[];
-  let seenArr=[];
-  let voteArr=[];
+  let nameArr = [];
+  let seenArr = [];
+  let voteArr = [];
   let ctx = document.getElementById('myChart').getContext('2d');
-  for(let x=0;x<imagesArray.length;x++){
-    nameArr.push( imgConstructor.allSplitArray[x].name);
+  for (let x = 0; x < imagesArray.length; x++) {
+    nameArr.push(imgConstructor.allSplitArray[x].name);
     seenArr.push(imgConstructor.allSplitArray[x].seen);
-    voteArr.push( imgConstructor.allSplitArray[x].vote);
-    
+    voteArr.push(imgConstructor.allSplitArray[x].vote);
+
   }
-  
+
   let myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels:nameArr,
+      labels: nameArr,
       datasets: [{
         label: '# of Seen',
-        data:seenArr ,
+        data: seenArr,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -158,7 +165,7 @@ function chartRender() {
 
       {
         label: '# of Votes',
-        data:voteArr,
+        data: voteArr,
         backgroundColor: [
           'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
@@ -167,7 +174,7 @@ function chartRender() {
           'rgba(153, 102, 255, 1)',
           'rgba(255, 159, 64, 1)'
 
-          
+
         ],
         borderColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -221,5 +228,24 @@ function sectionClickHandler(e) {
     chartRender();
 
   }
+}
+
+function getData() {
+  if (localStorage.data) {
+    let data =JSON.parse(localStorage.data);
+    for (let i = 0; i < data.length; i++) {
+      new imgConstructor(data[i].split('.')[0], data[i]);
+
+    }
+
+  } else {
+    for (let i = 0; i < imagesArray.length; i++) {
+      new imgConstructor(imagesArray[i].split('.')[0], imagesArray[i]);
+
+    }
+
+  }
+
+
 }
 render();
