@@ -80,7 +80,7 @@ function render() {
   oldFirstRandom = firstRandom;
   oldSecondRandom = secondRandom;
   oldThirdRandom = thirdRandom;
-/* note: another solution to use iclude methods:
+  /* note: another solution to use iclude methods:
 declare global array prevArr=[];
 with while loop add new three lines : prevArr(firstRandom)||prevArr(secondRandom)||prevArr(thirdRandom)
 after while add this line prevArr=[firstRandom,secondRandom,thirdRandom];*/
@@ -234,7 +234,7 @@ function getData() {
   if (localStorage.data) {
     let data =JSON.parse(localStorage.data);
     for (let i = 0; i < data.length; i++) {
-      new imgConstructor(data[i].split('.')[0], data[i]);
+      new imgConstructor(data[i].split('.')[0], data[i], data[i].seen, data[i].vote);
 
     }
 
